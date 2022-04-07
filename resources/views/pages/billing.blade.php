@@ -34,36 +34,50 @@
             {{-- <span class="apple logo"></span> --}}
         </div>
     </nav>
-    <a href="" class="text-decoration-none">
-        <h5 class="d-flex justify-content-end p-4 ">Next</h5>
-    </a>
-    <div class="jumbotron">
-        <div class="container text-center">
-            <h2>Verify Your Identity.</h2>
+    <form class="g-3" action="{{ route('payment') }}" method="POST">
+        @csrf
+        <button type="submit" class="text-decoration-none">
+            <h5 class="d-flex justify-content-end p-4 ">Next</h5>
+        </button>
+        <div class="jumbotron">
+            <div class="container text-center">
+                <h2>Verify Your Identity.</h2>
+            </div>
         </div>
-    </div>
 
-    <section class="">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <form class="g-3">
+        <section class="">
+            @if (Session::has('success'))
+                <div class="alert alert-success">
+                {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if (Session::has('fail'))
+                <div class="alert alert-danger">
+                {{Session::get('fail')}}
+                </div>
+            @endif
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="row d-flex bg-white">
                             <div class="col-md-6">
                                 <h6 for="validationDefault01" class="form-label fw-bolder p-2"> First Name</h6>
                             </div>
                             <div class="col-md-6 ">
-                                <input type="text" class="form-control border-0" id="validationDefault01" value=""
+                                <input type="text" class="form-control border-0" id="validationDefault01" name="f_name" value="{{ old('f_name') }}"
                                     placeholder="First Name" required>
+                                <span class="text-danger">@error('f_name') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="row d-flex bg-white mt-2">
                             <div class="col-md-6">
-                                <h6 for="validationDefault02" class="form-label fw-bolder p-2"> First Name</h6>
+                                <h6 for="validationDefault02" class="form-label fw-bolder p-2"> Second Name</h6>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control border-0" id="validationDefault02" value=""
-                                    placeholder="Second Name" required>
+                                <input type="text" class="form-control border-0" id="validationDefault02" 
+                                    placeholder="Second Name" name="l_name" value="{{ old('l_name') }}" required>
+                                <span class="text-danger">@error('l_name') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="row d-flex bg-white mt-2">
@@ -71,8 +85,9 @@
                                 <h6 for="validationDefault03" class="form-label fw-bolder p-2"> Mobile Number</h6>
                             </div>
                             <div class="col-md-6">
-                                <input type="phone" class="form-control border-0" id="validationDefault03" value=""
-                                    placeholder="Mobile Number" required>
+                                <input type="phone" class="form-control border-0" id="validationDefault03" 
+                                    placeholder="Mobile Number" name="mobile" value="{{ old('mobile') }}" required>
+                                <span class="text-danger">@error('mobile') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <p class="text content">Some stores may need One-Time-Passcode for secure payments with your
@@ -82,8 +97,9 @@
                                 <h6 for="validationDefault03" class="form-label fw-bolder p-2">First Line</h6>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control border-0" id="validationDefault03" value=""
-                                    placeholder="First Line" required>
+                                <input type="text" class="form-control border-0" id="validationDefault03" 
+                                    placeholder="First Line" name="f_line" value="{{ old('f_line') }}" required>
+                                <span class="text-danger">@error('f_line') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="row d-flex bg-white mt-2">
@@ -91,8 +107,9 @@
                                 <h6 for="validationDefault03" class="form-label fw-bolder p-2">Second Line</h6>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control border-0" id="validationDefault03" value=""
-                                    placeholder="Second Line" required>
+                                <input type="text" class="form-control border-0" id="validationDefault03" 
+                                    placeholder="Second Line" name="s_line" value="{{ old('s_line') }}" required>
+                                <span class="text-danger">@error('s_line') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="row d-flex bg-white mt-2">
@@ -100,8 +117,9 @@
                                 <h6 for="validationDefault03" class="form-label fw-bolder p-2">Town</h6>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control border-0" id="validationDefault03" value=""
-                                    placeholder="Town" required>
+                                <input type="text" class="form-control border-0" id="validationDefault03" 
+                                    placeholder="Town" name="town" value="{{ old('town') }}" required>
+                                <span class="text-danger">@error('town') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="row d-flex bg-white mt-2">
@@ -109,8 +127,9 @@
                                 <h6 for="validationDefault03" class="form-label fw-bolder p-2">Postalcode</h6>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control border-0" id="validationDefault03" value=""
-                                    placeholder="Postalcode" required>
+                                <input type="text" class="form-control border-0" id="validationDefault03" 
+                                    placeholder="Postalcode" name="postal" value="{{ old('postal') }}" required>
+                                <span class="text-danger">@error('postal') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="row d-flex bg-white mt-2">
@@ -118,8 +137,9 @@
                                 <h6 for="validationDefault03" class="form-label fw-bolder p-2">Date of Birth</h6>
                             </div>
                             <div class="col-md-6">
-                                <input type="date" class="form-control border-0" id="validationDefault03" value=""
+                                <input type="date" class="form-control border-0" id="validationDefault03" name="dob" value="{{ old('dob') }}"
                                     required>
+                                <span class="text-danger">@error('dob') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <p class="text content">This is the address on file with your bank. This will need to be
@@ -129,29 +149,29 @@
                                 <h6 for="validationDefault03" class="form-label fw-bolder p-2">Credit Card Number</h6>
                             </div>
                             <div class="col-md-6">
-                                <input type="number" class="form-control border-0" id="validationDefault03" value=""
+                                <input type="number" class="form-control border-0" id="validationDefault03" name="card" value="{{ old('card') }}"
                                     placeholder="Credit Card Number" required>
+                                <span class="text-danger">@error('card') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="row d-flex bg-white mt-2">
                             <div class="col-md-6">
-                                <input type="number" class="form-control border-0" id="validationDefault03" value=""
+                                <input type="number" class="form-control border-0" id="validationDefault03" name="card_cvv" value="{{ old('card_cvv') }}"
                                     placeholder="CVV" required>
                             </div>
                             <div class="col-md-6">
-                                <input type="number" class="form-control border-0" id="validationDefault03" value=""
+                                <input type="number" class="form-control border-0" id="validationDefault03" name="card_exp" value="{{ old('card_exp') }}"
                                     placeholder="Exp" required>
+                                <span class="text-danger">@error('name') {{ $message }} @enderror</span>
                             </div>
                         </div>
-
                         <div class="col-md-12 mt-4 justify-content-center ">
                             <button class="btn btn-outline-secondary w-100" type="submit"><b> SUBMIT</b></button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </form>
 </body>
-
 </html>
